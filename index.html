@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GI-FROST – Soluciones en Frío · Santo Domingo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #05080D;
+      --dark:    #080C12;
+      --dark2:   #0D1520;
+      --dark3:   #111C2A;
+      --electric:#00A8FF;
+      --electric2:#0077CC;
+      --glow:    rgba(0,168,255,0.35);
+      --glowS:   rgba(0,168,255,0.12);
+      --white:   #FFFFFF;
+      --silver:  #A8C0D0;
+      --dim:     #5A7A90;
+      --wa:      #25D366;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--electric2); border-radius: 3px; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,168,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,168,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 5%;
+      background: rgba(5,8,13,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,168,255,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.65rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo .snowflake {
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 6px var(--electric));
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .logo-gi { color: var(--white); }
+    .logo-dash, .logo-frost { color: var(--electric); }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver);
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--electric);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      background: var(--wa); color: white;
+      padding: 0.55rem 1.3rem; border-radius: 3px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+      transition: all 0.2s;
+      clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
+    }
+    .nav-cta:hover { background: #1ebe5d; box-shadow: 0 0 16px rgba(37,211,102,0.4); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 7rem 5% 5rem; position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 65% 40%, rgba(0,119,204,0.16) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 75%, rgba(0,168,255,0.07) 0%, transparent 50%),
+        var(--black);
+    }
+    .hero::after {
+      content: ''; position: absolute;
+      top: 15%; right: 8%; width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(0,168,255,0.1) 0%, transparent 70%);
+      border-radius: 50%; z-index: 1;
+      animation: breathe 6s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(1.12);opacity:0.6}
+    }
+
+    .hero-bg-mark {
+      position: absolute; right: -2%; top: 50%;
+      transform: translateY(-50%);
+      width: min(50vw, 580px);
+      opacity: 0.055; pointer-events: none; z-index: 1;
+      filter: grayscale(1) brightness(3);
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(0,168,255,0.28);
+      background: rgba(0,168,255,0.06);
+      color: var(--electric); padding: 0.35rem 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+      clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+      animation: fu 0.6s ease both;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--electric); box-shadow: 0 0 8px var(--electric);
+      animation: blink 2s infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; line-height: 0.93;
+      font-size: clamp(3rem, 7.5vw, 5.8rem);
+      text-transform: uppercase; letter-spacing: -1px;
+      margin-bottom: 1.4rem;
+      animation: fu 0.7s 0.1s ease both;
+    }
+    .h1-w { color: var(--white); display: block; }
+    .h1-b {
+      color: var(--electric); display: block;
+      text-shadow: 0 0 50px rgba(0,168,255,0.5), 0 0 100px rgba(0,168,255,0.2);
+    }
+    .h1-o {
+      display: block; color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.18);
+    }
+
+    .hero-rule {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--electric), transparent);
+      margin-bottom: 1.4rem;
+      animation: fu 0.7s 0.2s ease both;
+    }
+
+    .hero p {
+      font-size: 1rem; color: var(--silver); font-weight: 300;
+      line-height: 1.8; max-width: 460px; margin-bottom: 2.4rem;
+      animation: fu 0.7s 0.3s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 0.9rem; flex-wrap: wrap;
+      animation: fu 0.7s 0.4s ease both;
+    }
+
+    .btn-e {
+      background: var(--electric); color: var(--black);
+      padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+      transition: all 0.2s;
+    }
+    .btn-e:hover { background: #33bbff; box-shadow: 0 0 28px rgba(0,168,255,0.5); }
+
+    .btn-wa {
+      background: var(--wa); color: white;
+      padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+      transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-wa:hover { box-shadow: 0 0 24px rgba(37,211,102,0.5); }
+
+    .btn-ghost {
+      border: 1px solid rgba(0,168,255,0.35); color: var(--electric);
+      padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+      transition: all 0.2s; background: rgba(0,168,255,0.05);
+    }
+    .btn-ghost:hover { background: rgba(0,168,255,0.12); border-color: var(--electric); }
+
+    .hero-badges {
+      display: flex; gap: 1.8rem; flex-wrap: wrap; margin-top: 3rem;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.06);
+      animation: fu 0.7s 0.5s ease both;
+    }
+    .hb { display: flex; align-items: center; gap: 0.6rem; }
+    .hb-icon { font-size: 1.15rem; color: var(--electric); filter: drop-shadow(0 0 5px var(--electric)); min-width: 22px; text-align: center; }
+    .hb strong {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--white);
+    }
+    .hb span { font-size: 0.72rem; color: var(--dim); }
+
+    @keyframes fu {
+      from{opacity:0;transform:translateY(22px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* SECTIONS */
+    section { padding: 5.5rem 5%; position: relative; }
+
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--electric); margin-bottom: 0.7rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .eyebrow::before {
+      content: ''; width: 22px; height: 2px;
+      background: var(--electric); box-shadow: 0 0 8px var(--electric);
+      flex-shrink: 0;
+    }
+
+    .stitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: clamp(1.9rem,4vw,3rem);
+      text-transform: uppercase; letter-spacing: 0.02em;
+      line-height: 1.05; color: var(--white); margin-bottom: 0.9rem;
+    }
+    .stitle em {
+      font-style: normal; color: var(--electric);
+      text-shadow: 0 0 30px rgba(0,168,255,0.4);
+    }
+
+    .ssub {
+      font-size: 0.92rem; color: var(--silver); font-weight: 300;
+      line-height: 1.78; max-width: 500px; margin-bottom: 3.5rem;
+    }
+
+    /* SERVICIOS */
+    #servicios { background: var(--dark2); }
+    #servicios::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,168,255,0.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,168,255,0.03) 1px,transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(285px,1fr));
+      gap: 1px; background: rgba(0,168,255,0.07);
+      border: 1px solid rgba(0,168,255,0.07);
+      position: relative; z-index: 1;
+    }
+
+    .svc-card {
+      background: var(--dark2); padding: 2.2rem;
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .svc-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; width: 2px; height: 0;
+      background: linear-gradient(180deg,var(--electric),transparent);
+      transition: height 0.4s;
+    }
+    .svc-card::after {
+      content: '⚙'; position: absolute;
+      bottom: -12px; right: -4px; font-size: 5.5rem;
+      opacity: 0.035; color: var(--electric);
+      line-height: 1; transition: opacity 0.3s;
+    }
+    .svc-card:hover { background: #0f1e2e; }
+    .svc-card:hover::before { height: 100%; }
+    .svc-card:hover::after { opacity: 0.07; }
+
+    .svc-icon {
+      width: 50px; height: 50px;
+      border: 1px solid rgba(0,168,255,0.22);
+      background: rgba(0,168,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1.2rem;
+      color: var(--electric);
+      clip-path: polygon(7px 0%,100% 0%,calc(100% - 7px) 100%,0% 100%);
+    }
+
+    .svc-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--white); margin-bottom: 0.65rem;
+    }
+    .svc-card p { font-size: 0.87rem; color: var(--silver); line-height: 1.65; font-weight: 300; }
+    .svc-tag {
+      display: inline-block; margin-top: 1.1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--electric);
+      border: 1px solid rgba(0,168,255,0.28); padding: 0.35rem 0.9rem;
+    }
+
+    /* NOSOTROS */
+    #nosotros { background: var(--black); }
+
+    .nos-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .why-list { list-style: none; }
+    .why-item {
+      display: flex; align-items: flex-start; gap: 1.1rem;
+      padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: padding-left 0.2s;
+    }
+    .why-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+    .why-item:hover { padding-left: 0.5rem; }
+
+    .why-n {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; font-weight: 900;
+      color: var(--electric); min-width: 26px; margin-top: 2px; opacity: 0.55;
+    }
+    .why-ic { font-size: 1.1rem; min-width: 26px; color: var(--electric); filter: drop-shadow(0 0 4px var(--electric)); text-align: center; margin-top: 2px; }
+    .why-t strong {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.98rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--white); margin-bottom: 0.2rem;
+    }
+    .why-t span { font-size: 0.84rem; color: var(--silver); font-weight: 300; line-height: 1.6; }
+
+    .nos-panel {
+      background: var(--dark2); border: 1px solid rgba(0,168,255,0.12);
+      padding: 2.8rem; position: relative; overflow: hidden;
+    }
+    .nos-panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg,var(--electric),transparent);
+    }
+    .nos-panel::after {
+      content: '❄'; position: absolute; bottom: -2.5rem; right: -1.5rem;
+      font-size: 14rem; opacity: 0.035; color: var(--electric);
+      line-height: 1; filter: blur(2px);
+    }
+
+    .nos-logo {
+      width: 100%; max-width: 240px; margin: 0 auto 2rem;
+      display: block; filter: drop-shadow(0 0 18px rgba(0,168,255,0.28));
+    }
+
+    .nos-hl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.7rem; font-weight: 900; text-transform: uppercase;
+      line-height: 1.05; color: var(--white); margin-bottom: 0.7rem;
+    }
+    .nos-hl span { color: var(--electric); }
+    .nos-panel p {
+      font-size: 0.86rem; color: var(--silver); font-weight: 300;
+      line-height: 1.75; margin-bottom: 1.8rem; position: relative; z-index: 1;
+    }
+
+    .stats-g {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: rgba(0,168,255,0.08); border: 1px solid rgba(0,168,255,0.08);
+      position: relative; z-index: 1;
+    }
+    .stat-c {
+      background: var(--dark3); padding: 1.1rem; text-align: center;
+    }
+    .stat-c strong {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 900; color: var(--electric);
+      display: block; text-shadow: 0 0 18px rgba(0,168,255,0.4);
+    }
+    .stat-c span { font-size: 0.7rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+
+    /* CONTACTO */
+    #contacto { background: var(--dark2); }
+    #contacto::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,168,255,0.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,168,255,0.03) 1px,transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start; position: relative; z-index: 1;
+    }
+
+    .c-methods { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.5rem; }
+    .c-method {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.3rem;
+      border: 1px solid rgba(0,168,255,0.1);
+      background: rgba(0,168,255,0.03);
+      text-decoration: none; transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .c-method::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: var(--electric); transform: scaleY(0); transition: transform 0.25s;
+    }
+    .c-method:hover { background: rgba(0,168,255,0.08); border-color: rgba(0,168,255,0.28); }
+    .c-method:hover::before { transform: scaleY(1); }
+
+    .cm-ic {
+      width: 42px; height: 42px; flex-shrink: 0;
+      border: 1px solid rgba(0,168,255,0.2);
+      background: rgba(0,168,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem;
+    }
+    .c-method strong {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.88rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--white);
+    }
+    .c-method span { font-size: 0.8rem; color: var(--dim); }
+
+    .cta-panel {
+      background: var(--dark3); border: 1px solid rgba(0,168,255,0.14);
+      padding: 2.8rem; position: relative; overflow: hidden;
+    }
+    .cta-panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg,var(--electric),transparent);
+    }
+    .cta-panel::after {
+      content: '❄'; position: absolute; bottom: -2.5rem; right: -1.5rem;
+      font-size: 13rem; opacity: 0.04; color: var(--electric);
+      line-height: 1; filter: blur(1px);
+    }
+
+    .cta-panel h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem; font-weight: 900; text-transform: uppercase;
+      line-height: 1.05; color: var(--white); margin-bottom: 0.75rem;
+    }
+    .cta-panel h3 span { color: var(--electric); }
+    .cta-panel p {
+      font-size: 0.88rem; color: var(--silver); font-weight: 300;
+      line-height: 1.75; margin-bottom: 2rem; position: relative; z-index: 1;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      background: var(--wa); color: white; padding: 1rem 2.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+      transition: all 0.2s; position: relative; z-index: 1;
+    }
+    .cta-btn:hover { background: #1ebe5d; box-shadow: 0 0 28px rgba(37,211,102,0.5); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black); border-top: 1px solid rgba(0,168,255,0.1);
+      padding: 2.4rem 5%;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .f-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.4rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white);
+    }
+    .f-logo span { color: var(--electric); }
+    .f-tag { font-size: 0.72rem; color: var(--dim); margin-top: 0.2rem; letter-spacing: 0.04em; }
+    .f-links { display: flex; gap: 2rem; list-style: none; }
+    .f-links a {
+      color: var(--dim); text-decoration: none;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    .f-links a:hover { color: var(--electric); }
+    .f-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); }
+
+    /* FLOAT WA */
+    .fwa {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      width: 56px; height: 56px; background: var(--wa);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      clip-path: polygon(7px 0%,100% 0%,calc(100% - 7px) 100%,0% 100%);
+      animation: waIn 0.5s 1.5s ease both, waPulse 3s 2.5s infinite;
+      transition: transform 0.2s;
+    }
+    @keyframes waIn{from{opacity:0;transform:scale(0.3)}to{opacity:1;transform:scale(1)}}
+    @keyframes waPulse{
+      0%{box-shadow:0 0 0 0 rgba(37,211,102,0.55)}
+      70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}
+      100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+    }
+    .fwa:hover { transform: scale(1.08); background: #1ebe5d; }
+    .fwa svg { width: 26px; height: 26px; }
+    .fwa-tip {
+      position: absolute; right: 66px;
+      background: var(--dark3); border: 1px solid rgba(0,168,255,0.2);
+      color: var(--white); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.38rem 0.75rem;
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .fwa:hover .fwa-tip { opacity: 1; }
+
+    @media (max-width:900px){
+      .nos-grid,.contact-grid{grid-template-columns:1fr;gap:3rem;}
+      .nav-links{display:none;}
+      .hero-bg-mark{display:none;}
+    }
+    @media (max-width:500px){
+      nav{padding:.9rem 4%;}
+      section{padding:3.8rem 4%;}
+      .hero{padding:6rem 4% 4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <span class="snowflake"><i class="fa-solid fa-snowflake"></i></span>
+    <span class="logo-gi">GI</span><span class="logo-dash">-</span><span class="logo-frost">FROST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/18092586708" target="_blank" class="nav-cta">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</nav>
+
+<section class="hero" id="inicio">
+  <img src="1773876406930_image.png" class="hero-bg-mark" alt=""/>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span>Servicio técnico · Santo Domingo</div>
+    <h1>
+      <span class="h1-w">Soluciones</span>
+      <span class="h1-b">en frío</span>
+      <span class="h1-o">garantizadas</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p>Instalación, mantenimiento y reparación de aires acondicionados y equipos de refrigeración. Rápido, confiable y con garantía en cada trabajo.</p>
+    <div class="hero-btns">
+      <a href="#servicios" class="btn-e">Ver servicios</a>
+      <a href="https://wa.me/18092586708?text=Hola%20GI-FROST%2C%20necesito%20ayuda%20con%20mi%20equipo." target="_blank" class="btn-wa">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir ahora
+      </a>
+      <a href="#contacto" class="btn-ghost">Contacto</a>
+    </div>
+    <div class="hero-badges">
+      <div class="hb"><span class="hb-icon"><i class="fa-solid fa-bolt"></i></span><div><strong>Respuesta rápida</strong><span>Dentro del mismo día</span></div></div>
+      <div class="hb"><span class="hb-icon"><i class="fa-solid fa-circle-check"></i></span><div><strong>Garantizado</strong><span>Sin sorpresas</span></div></div>
+      <div class="hb"><span class="hb-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span><div><strong>Técnicos expertos</strong><span>Certificados</span></div></div>
+      <div class="hb"><span class="hb-icon"><i class="fa-solid fa-tag"></i></span><div><strong>Precio justo</strong><span>Cotización detallada</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="eyebrow">Lo que hacemos</div>
+  <div class="stitle">Nuestros <em>servicios</em></div>
+  <p class="ssub">Todo lo que su equipo de climatización o refrigeración necesita, desde la instalación hasta el mantenimiento preventivo.</p>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-wrench"></i></div>
+      <h3>Instalación</h3>
+      <p>Instalamos aires split, de ventana y equipos de refrigeración comercial o residencial con precisión y limpieza.</p>
+      <span class="svc-tag">Residencial · Comercial</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+      <h3>Mantenimiento</h3>
+      <p>Limpieza profunda, revisión de gas refrigerante, filtros y componentes para mantener su equipo al 100%.</p>
+      <span class="svc-tag">Preventivo · Correctivo</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-bolt"></i></div>
+      <h3>Reparación</h3>
+      <p>Diagnóstico rápido y reparación eficiente: compresor, termostato, fugas de gas, problemas eléctricos y más.</p>
+      <span class="svc-tag">Servicio urgente</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-temperature-low"></i></div>
+      <h3>Refrigeración Comercial</h3>
+      <p>Cuartos fríos, vitrinas refrigeradas y equipos de negocio que no pueden detenerse.</p>
+      <span class="svc-tag">Negocios · Restaurantes</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-wind"></i></div>
+      <h3>Recarga de Gas</h3>
+      <p>Recarga y verificación de gas refrigerante R22, R410A y R32 para restaurar el rendimiento óptimo.</p>
+      <span class="svc-tag">Todos los tipos</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+      <h3>Visita de Diagnóstico</h3>
+      <p>Nuestro técnico visita su equipo, identifica el problema y le da una cotización detallada. Si realiza el servicio con nosotros, el costo de la visita se descuenta.</p>
+      <span class="svc-tag">Desde RD$800 · Se descuenta si contrata</span>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="nos-grid">
+    <div>
+      <div class="eyebrow">Sobre nosotros</div>
+      <div class="stitle">¿Por qué elegir<br><em>GI-FROST?</em></div>
+      <p class="ssub" style="margin-bottom:1.8rem;">Empresa familiar con técnicos comprometidos en hacer el trabajo bien desde la primera visita.</p>
+      <ul class="why-list">
+        <li class="why-item">
+          <span class="why-n">01</span><span class="why-ic"><i class="fa-solid fa-bolt"></i></span>
+          <div class="why-t"><strong>Respuesta rápida</strong><span>Le respondemos dentro del mismo día en la mayoría de los casos.</span></div>
+        </li>
+        <li class="why-item">
+          <span class="why-n">02</span><span class="why-ic"><i class="fa-solid fa-user-gear"></i></span>
+          <div class="why-t"><strong>Técnicos capacitados</strong><span>Experiencia comprobada en equipos residenciales y comerciales.</span></div>
+        </li>
+        <li class="why-item">
+          <span class="why-n">03</span><span class="why-ic"><i class="fa-solid fa-hand-holding-dollar"></i></span>
+          <div class="why-t"><strong>Precios transparentes</strong><span>Le cotizamos antes de empezar. Sin sorpresas al final del servicio.</span></div>
+        </li>
+        <li class="why-item">
+          <span class="why-n">04</span><span class="why-ic"><i class="fa-solid fa-shield-halved"></i></span>
+          <div class="why-t"><strong>Garantía en el trabajo</strong><span>Si hay un problema después del servicio, regresamos a resolverlo.</span></div>
+        </li>
+        <li class="why-item">
+          <span class="why-n">05</span><span class="why-ic"><i class="fa-brands fa-whatsapp"></i></span>
+          <div class="why-t"><strong>Comunicación directa</strong><span>Hable con nosotros directo por WhatsApp. Sin intermediarios.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="nos-panel">
+      <img src="1773876406930_image.png" class="nos-logo" alt="GI-FROST Logo"/>
+      <div class="nos-hl"><span>GI-FROST</span><br>Soluciones en Frío</div>
+      <p>Somos una empresa familiar de confianza. Combinamos el trato personal con la seriedad técnica que su equipo merece.</p>
+      <div class="stats-g">
+        <div class="stat-c"><strong><i class="fa-solid fa-location-dot"></i></strong><span>Sto. Domingo</span></div>
+        <div class="stat-c"><strong><i class="fa-solid fa-users"></i></strong><span>100% Local</span></div>
+        <div class="stat-c"><strong><i class="fa-solid fa-bolt"></i></strong><span>Mismo día</span></div>
+        <div class="stat-c"><strong><i class="fa-solid fa-shield-halved"></i></strong><span>Garantizado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-grid">
+    <div>
+      <div class="eyebrow">Hablemos</div>
+      <div class="stitle">Estamos listos<br>para <em>ayudarle</em></div>
+      <p class="ssub" style="margin-bottom:.5rem;">Escríbanos por WhatsApp y le respondemos dentro del mismo día. También puede llamarnos directamente.</p>
+      <div class="c-methods">
+        <a href="https://wa.me/18092586708" target="_blank" class="c-method">
+          <div class="cm-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+          <div><strong>WhatsApp</strong><span>809-258-6708 · Respondemos rápido</span></div>
+        </a>
+        <a href="tel:+18092586708" class="c-method">
+          <div class="cm-ic"><i class="fa-solid fa-phone" style="color:var(--electric)"></i></div>
+          <div><strong>Llamada directa</strong><span>(809) 258-6708</span></div>
+        </a>
+        <div class="c-method" style="cursor:default">
+          <div class="cm-ic"><i class="fa-solid fa-location-dot" style="color:var(--electric)"></i></div>
+          <div><strong>Área de servicio</strong><span>Santo Domingo</span></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="cta-panel">
+      <h3>¿Equipo dañado?<br><span>¡Escríbenos ahora!</span></h3>
+      <p>Cuéntenos el problema por WhatsApp y le damos solución rápida. Atención directa y sin esperas.</p>
+      <a href="https://wa.me/18092586708?text=Hola%20GI-FROST%2C%20necesito%20ayuda%20con%20mi%20equipo%20de%20aire%20acondicionado." target="_blank" class="cta-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="f-logo">GI<span>-FROST</span></div>
+    <div class="f-tag">Aires & Refrigeración · Santo Domingo, RD</div>
+  </div>
+  <ul class="f-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="f-copy">© 2025 GI-FROST. Todos los derechos reservados.</div>
+</footer>
+
+<a href="https://wa.me/18092586708?text=Hola%20GI-FROST%2C%20necesito%20informaci%C3%B3n%20sobre%20sus%20servicios." target="_blank" class="fwa" aria-label="WhatsApp">
+  <span class="fwa-tip">¡Escríbenos!</span>
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
